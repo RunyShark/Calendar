@@ -6,7 +6,7 @@ export const AppRoutes = () => {
   return (
     <Routes>
       {authStatus === "not-authenticate" ? (
-        <Route path="/auth/*" element={<LoginPage />} />
+        <Route path="/auth/login" element={<LoginPage />} />
       ) : (
         <Route path="/*" element={<CalendarPages />} />
       )}
