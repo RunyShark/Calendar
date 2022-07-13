@@ -5,9 +5,9 @@ export const AppRoutes = () => {
 
   return (
     <Routes>
-      <Route path="/" element={<CalendarPages />} />
+      <Route exact path="/" element={<CalendarPages />} />
       <Route path="/auth" element={<LoginPage />} />
-      <Route exact path="*" element={<ErrorRoute />} />
+      <Route path="*" element={<ErrorRoute />} />
     </Routes>
   );
 };
