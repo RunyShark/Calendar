@@ -5,12 +5,9 @@ export const AppRoutes = () => {
 
   return (
     <Routes>
+      <Route path="/" element={<CalendarPages />} />
+      <Route path="/auth" element={<LoginPage />} />
       <Route exact path="*" element={<ErrorRoute />} />
-      {authStatus === "not-authenticate" ? (
-        <Route path="/" element={<LoginPage />} />
-      ) : (
-        <Route path="/" element={<CalendarPages />} />
-      )}
     </Routes>
   );
 };
