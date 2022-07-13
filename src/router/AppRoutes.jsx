@@ -1,18 +1,17 @@
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, Navigate } from "react-router-dom";
 import { CalendarPages, LoginPage } from "../index";
 export const AppRoutes = () => {
   const authStatus = "not-authenticate";
 
   return (
     <Routes>
-      {/* {authStatus === "not-authenticate" ? (
-        <Route path="/auth/login" element={<LoginPage />} />
+      {authStatus === "not-authenticate" ? (
+        <Route path="/auth/*" element={<LoginPage />} />
       ) : (
-        <Route path="/" element={<CalendarPages />} />
-      )} */}
+        <Route path="/*" element={<CalendarPages />} />
+      )}
 
-      <Route path="/auth/*" element={<LoginPage />} />
-      <Route path="/*" element={<CalendarPages />} />
+      <Route path="/*" element={<Navigate to="/auth/login" />} />
     </Routes>
   );
 };
