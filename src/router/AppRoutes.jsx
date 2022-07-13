@@ -12,7 +12,7 @@ export const AppRoutes = () => {
       )} */}
 
       <Route path="/auth/*" element={<LoginPage />} />
-      <Route path="/" element={<CalendarPages />} />
+      <Route path="/*" element={<CalendarPages />} />
     </Routes>
   );
 };
