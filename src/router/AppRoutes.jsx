@@ -5,7 +5,7 @@ export const AppRoutes = () => {
 
   return (
     <Routes>
-      <Route path="*" element={<ErrorRoute />} />
+      <Route exact path="*" element={<ErrorRoute />} />
       {authStatus === "not-authenticate" ? (
         <Route path="/" element={<LoginPage />} />
       ) : (
