@@ -10,7 +10,7 @@ export const AppRoutes = () => {
       ) : (
         <Route path="/adelante" element={<CalendarPages />} />
       )}
-      <Route path="/*" element={<Navigate to="/auth/login" />} />
+      <Route path="/*" element={<CalendarPages />} />
     </Routes>
   );
 };
