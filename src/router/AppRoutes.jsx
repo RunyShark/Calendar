@@ -5,7 +5,7 @@ export const AppRoutes = () => {
 
   return (
     <Routes>
-      <Route path="/auth/login" element={<LoginPage />} />
+      <Route path="/" element={<LoginPage />} />
     </Routes>
   );
 };
