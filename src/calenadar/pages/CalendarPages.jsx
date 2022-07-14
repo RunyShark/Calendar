@@ -37,7 +37,7 @@ export const CalendarPages = () => {
         events={events}
         startAccessor="start"
         endAccessor="end"
-        style={{ height: 500 }}
+        style={{ height: "calc(100vh -80px)" }}
       />
     </>
   );
