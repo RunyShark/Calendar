@@ -5,6 +5,7 @@ import DatePicker, { registerLocale } from "react-datepicker";
 import es from "date-fns/locale/es";
 import "react-datepicker/dist/react-datepicker.css";
 import "./modal.css";
+import { differenceInSeconds } from "date-fns/esm";
 registerLocale("es", es);
 const customStyles = {
   content: {
@@ -44,6 +45,19 @@ export const CalendarModal = () => {
       [changing]: event,
     });
   };
+  const hadleSubmit = (event) => {
+    event.preventDefault();
+    const difference = differenceInSeconds(fechaFin, fechaInicio);
+    if (difference <= 0 || isNaN(difference)) {
+      console.log("Error en fechas");
+      return;
+    }
+    if (title.length <= 0) {
+      console.log("Error titulo es un campo obligatorio");
+      return;
+    }
+    console.log(formState);
+  };
   return (
     <Modal
       isOpen={isOpen}
@@ -56,7 +70,7 @@ export const CalendarModal = () => {
     >
       <h1> Nuevo evento </h1>
       <hr />
-      <form className="container">
+      <form className="container" onSubmit={hadleSubmit}>
         <div className="form-group mb-2">
           <label>Fecha y hora inicio</label>
           <DatePicker
