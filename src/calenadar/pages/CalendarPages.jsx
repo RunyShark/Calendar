@@ -10,6 +10,7 @@ import {
   useUIStore,
   useCalendarStore,
   FabAddNew,
+  FabAddDelete,
 } from "../../index";
 
 export const CalendarPages = () => {
@@ -60,6 +61,7 @@ export const CalendarPages = () => {
       />
       <CalendarModal />
       <FabAddNew />
+      <FabAddDelete />
     </>
   );
 };
