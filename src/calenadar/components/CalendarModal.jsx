@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import DatePicker, { registerLocale } from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { addHours } from "date-fns";
@@ -8,7 +8,7 @@ import Swal from "sweetalert2";
 import "sweetalert2/dist/sweetalert2.min.css";
 import es from "date-fns/locale/es";
 import { differenceInSeconds } from "date-fns/esm";
-import { useUIStore } from "../../index";
+import { useUIStore, useCalendarStore } from "../../index";
 
 registerLocale("es", es);
 const customStyles = {
@@ -24,22 +24,27 @@ const customStyles = {
 Modal.setAppElement("#root");
 export const CalendarModal = () => {
   const { closeDateModal, isDateModalOpen } = useUIStore();
+  const { events, activeEvent } = useCalendarStore();
 
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [formState, setFormState] = useState({
-    fechaInicio: new Date(),
-    fechaFin: addHours(new Date(), 2),
     title: "",
     notes: "",
+    start: new Date(),
+    end: addHours(new Date(), 2),
   });
-
-  const { fechaInicio, fechaFin, title, notes } = formState;
+  const { title, notes, start, end } = formState;
 
   const titleClass = useMemo(() => {
     if (!formSubmitted) return "";
     return title.length === 0 ? "is-invalid" : "";
   }, [title, formSubmitted]);
 
+  useEffect(() => {
+    if (activeEvent) {
+      setFormState({ ...activeEvent });
+    }
+  }, [activeEvent]);
   const onInputChange = ({ target }) => {
     const { name, value } = target;
     setFormState({
@@ -83,9 +88,9 @@ export const CalendarModal = () => {
         <div className="form-group mb-2">
           <label>Fecha y hora inicio</label>
           <DatePicker
-            selected={fechaInicio}
+            selected={start}
             className="form-control"
-            onChange={(event) => onDateChanged(event, "fechaInicio")}
+            onChange={(event) => onDateChanged(event, "start")}
             dateFormat="Pp"
             showTimeSelect
             locale="es"
@@ -96,10 +101,10 @@ export const CalendarModal = () => {
         <div className="form-group mb-2">
           <label>Fecha y hora fin</label>
           <DatePicker
-            minDate={fechaInicio}
-            selected={fechaFin}
+            minDate={start}
+            selected={end}
             className="form-control"
-            onChange={(event) => onDateChanged(event, "fechaFin")}
+            onChange={(event) => onDateChanged(event, "end")}
             dateFormat="Pp"
             showTimeSelect
             locale="es"

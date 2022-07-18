@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Calendar } from "react-big-calendar";
 import "react-big-calendar/lib/css/react-big-calendar.css";
-import { addHours } from "date-fns";
 import {
   Navbar,
   localizer,
@@ -10,10 +9,11 @@ import {
   CalendarModal,
   useUIStore,
   useCalendarStore,
+  FabAddNew,
 } from "../../index";
 
 export const CalendarPages = () => {
-  const { events } = useCalendarStore();
+  const { events, setActiveEvent } = useCalendarStore();
   const { openDateModal } = useUIStore();
   const [lastView, setLastView] = useState(
     localStorage.getItem("lasView") || "week"
@@ -33,7 +33,7 @@ export const CalendarPages = () => {
     openDateModal();
   };
   const onSelect = (event) => {
-    console.log({ click: event });
+    setActiveEvent(event);
   };
   const onViewChaged = (event) => {
     localStorage.setItem("lasView", event);
@@ -59,6 +59,7 @@ export const CalendarPages = () => {
         onView={onViewChaged}
       />
       <CalendarModal />
+      <FabAddNew />
     </>
   );
 };
