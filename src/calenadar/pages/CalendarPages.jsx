@@ -9,23 +9,11 @@ import {
   CalendarEven,
   CalendarModal,
   useUIStore,
+  useCalendarStore,
 } from "../../index";
 
-const events = [
-  {
-    title: "Cumpleaños",
-    notes: "Pastel",
-    start: new Date(),
-    end: addHours(new Date(), 2),
-    bgColor: "#fafafa",
-    user: {
-      _id: "123",
-      name: "Dario",
-    },
-  },
-];
-
 export const CalendarPages = () => {
+  const { events } = useCalendarStore();
   const { openDateModal } = useUIStore();
   const [lastView, setLastView] = useState(
     localStorage.getItem("lasView") || "week"

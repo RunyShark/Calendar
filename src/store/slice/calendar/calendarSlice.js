@@ -1,18 +1,25 @@
 import { createSlice } from "@reduxjs/toolkit";
-
+import { addHours } from "date-fns";
+const tempEvent = {
+  title: "Cumpleaños",
+  notes: "Pastel",
+  start: new Date(),
+  end: addHours(new Date(), 2),
+  bgColor: "#fafafa",
+  user: {
+    _id: "123",
+    name: "Dario",
+  },
+};
 export const calendarSlice = createSlice({
   name: "calendar",
   initialState: {
-    isDateModalOpen: false,
+    events: [tempEvent],
+    activeEvent: null,
   },
   reducers: {
-    onOpenDateModall: (state) => {
-      state.isDateModalOpen = true;
-    },
-    onCloseDateModall: (state) => {
-      state.isDateModalOpen = false;
-    },
+    event: (state) => {},
   },
 });
 
-export const { onOpenDateModall, onCloseDateModall } = calendarSlice.actions;
+export const { event } = calendarSlice.actions;
