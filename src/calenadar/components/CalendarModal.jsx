@@ -24,7 +24,7 @@ const customStyles = {
 Modal.setAppElement("#root");
 export const CalendarModal = () => {
   const { closeDateModal, isDateModalOpen } = useUIStore();
-  const { events, activeEvent } = useCalendarStore();
+  const { startSavingEvent, activeEvent } = useCalendarStore();
 
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [formState, setFormState] = useState({
@@ -58,10 +58,10 @@ export const CalendarModal = () => {
       [changing]: event,
     });
   };
-  const hadleSubmit = (event) => {
+  const hadleSubmit = async (event) => {
     event.preventDefault();
     setFormSubmitted(true);
-    const difference = differenceInSeconds(fechaFin, fechaInicio);
+    const difference = differenceInSeconds(end, start);
     if (difference <= 0 || isNaN(difference)) {
       Swal.fire("Fechas", "Revisar las fechas ingresadas", "error");
       return;
@@ -70,7 +70,9 @@ export const CalendarModal = () => {
       Swal.fire("Titulo", "Titulo es un campo obligatorio", "error");
       return;
     }
-    console.log(formState);
+    console.log("hola");
+    await startSavingEvent(formState);
+    closeDateModal();
   };
   return (
     <Modal
