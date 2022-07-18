@@ -6,13 +6,13 @@ export const calendarSlice = createSlice({
     isDateModalOpen: false,
   },
   reducers: {
-    onOpenDateModal: (state) => {
+    onOpenDateModall: (state) => {
       state.isDateModalOpen = true;
     },
-    onCloseDateModal: (state) => {
+    onCloseDateModall: (state) => {
       state.isDateModalOpen = false;
     },
   },
 });
 
-export const { onOpenDateModal, onCloseDateModal } = calendarSlice.actions;
+export const { onOpenDateModall, onCloseDateModall } = calendarSlice.actions;

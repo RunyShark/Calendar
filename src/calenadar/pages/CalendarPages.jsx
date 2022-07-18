@@ -8,6 +8,7 @@ import {
   getMessagesEs,
   CalendarEven,
   CalendarModal,
+  useUIStore,
 } from "../../index";
 
 const events = [
@@ -25,6 +26,7 @@ const events = [
 ];
 
 export const CalendarPages = () => {
+  const { openDateModal } = useUIStore();
   const [lastView, setLastView] = useState(
     localStorage.getItem("lasView") || "week"
   );
@@ -40,7 +42,7 @@ export const CalendarPages = () => {
     };
   };
   const onDobleClick = (event) => {
-    console.log({ dobleClick: event });
+    openDateModal();
   };
   const onSelect = (event) => {
     console.log({ click: event });
