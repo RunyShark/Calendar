@@ -1,11 +1,14 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { addHours } from "date-fns";
+import Swal from "sweetalert2";
+import "sweetalert2/dist/sweetalert2.min.css";
 import Modal from "react-modal/lib/components/Modal";
 import DatePicker, { registerLocale } from "react-datepicker";
 import es from "date-fns/locale/es";
 import "react-datepicker/dist/react-datepicker.css";
 import "./modal.css";
 import { differenceInSeconds } from "date-fns/esm";
+
 registerLocale("es", es);
 const customStyles = {
   content: {
@@ -20,6 +23,7 @@ const customStyles = {
 Modal.setAppElement("#root");
 export const CalendarModal = () => {
   const [isOpen, setIsOpen] = useState(true);
+  const [formSubmitted, setFormSubmitted] = useState(false);
   const [formState, setFormState] = useState({
     fechaInicio: new Date(),
     fechaFin: addHours(new Date(), 2),
@@ -28,6 +32,12 @@ export const CalendarModal = () => {
   });
 
   const { fechaInicio, fechaFin, title, notes } = formState;
+
+  const titleClass = useMemo(() => {
+    if (!formSubmitted) return "";
+    return title.length === 0 ? "is-invalid" : "";
+  }, [title, formSubmitted]);
+
   const onCloseModal = () => {
     setIsOpen(false);
   };
@@ -47,13 +57,14 @@ export const CalendarModal = () => {
   };
   const hadleSubmit = (event) => {
     event.preventDefault();
+    setFormSubmitted(true);
     const difference = differenceInSeconds(fechaFin, fechaInicio);
     if (difference <= 0 || isNaN(difference)) {
-      console.log("Error en fechas");
+      Swal.fire("Fechas", "Revisar las fechas ingresadas", "error");
       return;
     }
     if (title.length <= 0) {
-      console.log("Error titulo es un campo obligatorio");
+      Swal.fire("Titulo", "Titulo es un campo obligatorio", "error");
       return;
     }
     console.log(formState);
@@ -103,7 +114,7 @@ export const CalendarModal = () => {
           <label>Titulo y notas</label>
           <input
             type="text"
-            className="form-control"
+            className={`form-control ${titleClass}`}
             placeholder="Título del evento"
             value={title}
             name="title"
