@@ -1,5 +1,5 @@
 import { useForm } from "../../index";
-import { useDispatch, useSelector } from "react-redux";
+
 import "./login.css";
 const login = {
   email: "",
@@ -12,8 +12,6 @@ const registro = {
   registerPassword2: "",
 };
 export const LoginPage = () => {
-  const {} = useSelector((state) => state.auth);
-  const dispatch = useDispatch();
   const { formState, email, password, onInputChange } = useForm(login);
   const {
     formState: formStateRegister,
