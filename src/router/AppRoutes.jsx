@@ -5,7 +5,7 @@ export const AppRoutes = () => {
 
   return (
     <Routes>
-      {authStatus === "authenticate" ? (
+      {authStatus !== "authenticate" ? (
         <Route path="/auth/*" element={<LoginPage />} />
       ) : (
         <Route exact path="/*" element={<CalendarPages />} />
