@@ -3,14 +3,28 @@ import { createSlice } from "@reduxjs/toolkit";
 export const authSlice = createSlice({
   name: "auth",
   initialState: {
-    counter: 10,
+    status: "checking",
+    user: {},
+    errorMessage: undefined,
   },
   reducers: {
-    increment: (state /* action */) => {
-      state.counter += 1;
+    onChecking: (state) => {
+      state.status = "checking";
+      state.user = {};
+      state.errorMessage = undefined;
+    },
+    onLogin: (state, { payload }) => {
+      state.status = "authenticate";
+      state.user = payload;
+      state.errorMessage = undefined;
+    },
+    onRegister: (state, { payload }) => {
+      state.status = "checking";
+      state.user = payload;
+      state.errorMessage = undefined;
     },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { increment } = authSlice.actions;
+export const { onChecking, onLogin, onRegister } = authSlice.actions;
