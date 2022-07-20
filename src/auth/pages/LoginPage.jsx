@@ -1,4 +1,4 @@
-import { useForm } from "../../index";
+import { useForm, useAuthStore } from "../../index";
 
 import "./login.css";
 const login = {
@@ -12,6 +12,7 @@ const registro = {
   registerPassword2: "",
 };
 export const LoginPage = () => {
+  const { startLogin } = useAuthStore();
   const { formState, email, password, onInputChange } = useForm(login);
   const {
     formState: formStateRegister,
@@ -24,7 +25,7 @@ export const LoginPage = () => {
 
   const onSubmitLogin = (event) => {
     event.preventDefault();
-    console.log(formState);
+    startLogin(formState);
   };
 
   const onSubmitRegister = (event) => {

@@ -1,11 +1,12 @@
 import { Route, Routes, Navigate } from "react-router-dom";
-import { CalendarPages, LoginPage } from "../index";
+import { CalendarPages, LoginPage, useAuthStore } from "../index";
 export const AppRoutes = () => {
-  const authStatus = "not-authenticate";
+  const { status } = useAuthStore();
+  const authStatus = status;
 
   return (
     <Routes>
-      {authStatus !== "authenticate" ? (
+      {authStatus === "checking" ? (
         <Route path="/auth/*" element={<LoginPage />} />
       ) : (
         <Route exact path="/*" element={<CalendarPages />} />
