@@ -1,5 +1,11 @@
 import { useDispatch, useSelector } from "react-redux";
-import { calendarApi, onLogin, onChecking } from "../index";
+import {
+  calendarApi,
+  onLogin,
+  onChecking,
+  onLogout,
+  clearErrorMessage,
+} from "../index";
 
 export const useAuthStore = () => {
   const { status, user, errorMessage } = useSelector((state) => state.auth);
@@ -14,12 +20,10 @@ export const useAuthStore = () => {
       localStorage.setItem("token-init-date", new Date().getTime());
       dispatch(onLogin({ name, uid }));
     } catch (error) {
-      const {
-        response: {
-          data: { errors },
-        },
-      } = error;
-      console.log(errors);
+      dispatch(onLogout("Credenciales incorrectas"));
+      setTimeout(() => {
+        dispatch(clearErrorMessage());
+      }, 10);
     }
   };
   const startRegister = async ({ name, email, password }) => {
@@ -36,20 +40,13 @@ export const useAuthStore = () => {
       localStorage.setItem("token", token);
       const user = data.acount;
       dispatch(onLogin(user));
-    } catch (error) {
-      console.log(error);
-      const {
-        response: {
-          data: { errors },
-        },
-      } = error;
-      console.log(errors);
-    }
+    } catch (error) {}
   };
 
   const logout = () => {
     localStorage.removeItem("token");
-    dispatch(onChecking());
+    localStorage.removeItem("token-init-date");
+    dispatch(onLogout());
   };
 
   return {
