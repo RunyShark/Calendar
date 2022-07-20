@@ -12,7 +12,7 @@ const registro = {
   registerPassword2: "",
 };
 export const LoginPage = () => {
-  const { startLogin } = useAuthStore();
+  const { startLogin, startRegister } = useAuthStore();
   const { formState, email, password, onInputChange } = useForm(login);
   const {
     formState: formStateRegister,
@@ -30,7 +30,13 @@ export const LoginPage = () => {
 
   const onSubmitRegister = (event) => {
     event.preventDefault();
-    console.log(formStateRegister);
+    if (registerPassword !== registerPassword2) return;
+
+    startRegister({
+      name,
+      email: registerEmail,
+      password: registerPassword,
+    });
   };
 
   return (

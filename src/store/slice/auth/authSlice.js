@@ -23,6 +23,7 @@ export const authSlice = createSlice({
       state.user = payload;
       state.errorMessage = undefined;
     },
+    onLogout: (state, { payload }) => {},
   },
 });
 
