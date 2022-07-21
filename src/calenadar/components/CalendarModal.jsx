@@ -70,7 +70,7 @@ export const CalendarModal = () => {
       Swal.fire("Titulo", "Titulo es un campo obligatorio", "error");
       return;
     }
-    console.log("hola");
+
     await startSavingEvent(formState);
     closeDateModal();
     setFormSubmitted(false);
