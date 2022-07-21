@@ -54,4 +54,5 @@ export const {
   onUpdateEvent,
   onDeleteEvent,
   onEvents,
+  onLogoutCalendar,
 } = calendarSlice.actions;
