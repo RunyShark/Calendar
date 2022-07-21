@@ -1,5 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { addHours } from "date-fns";
+import { useAuthStore } from "../../../index";
+
 const tempEvent = {
   _id: new Date().getTime(),
   title: "Cumpleaños",

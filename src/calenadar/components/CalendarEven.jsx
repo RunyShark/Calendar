@@ -1,20 +1,12 @@
 import React from "react";
 
-export const CalendarEven = ({
-  event: {
-    title,
-    notes,
-    start,
-    end,
-    bgColor,
-    user: { name, id },
-  },
-}) => {
+export const CalendarEven = ({ event }) => {
+  console.log("Calenadar Even", event);
+  const { title, user } = event;
   return (
     <>
       <strong>{title}</strong>
-      <span> - {name}</span>
-      <p>{notes}</p>
+      <span> - {user.name}</span>
     </>
   );
 };

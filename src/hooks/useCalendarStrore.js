@@ -4,6 +4,7 @@ import {
   onAddNewEvent,
   onUpdateEvent,
   onDeleteEvent,
+  calendarApi,
 } from "../index";
 
 export const useCalendarStore = () => {
@@ -14,11 +15,15 @@ export const useCalendarStore = () => {
     dispatch(onSetActiEvent(calendarEvent));
   };
   const startSavingEvent = async (calendarEvent) => {
+    console.log("Estar", calendarEvent);
+
     if (calendarEvent._id) {
       //*actualizo
       dispatch(onUpdateEvent({ ...calendarEvent }));
     } else {
       //*creo
+      // const { data } = await calendarApi.post("/events", calendarEvent);
+      // console.log(data);
       dispatch(onAddNewEvent({ ...calendarEvent, _id: new Date().getTime() }));
     }
   };

@@ -10,7 +10,6 @@ calendarApi.interceptors.request.use((config) => {
   config.headers = {
     "x-token": localStorage.getItem("token"),
   };
-  console.log(`soy yo`, config);
 
   return config;
 });

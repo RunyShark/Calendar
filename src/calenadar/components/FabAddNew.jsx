@@ -1,9 +1,11 @@
 import { addHours } from "date-fns";
-import { useUIStore, useCalendarStore } from "../../index";
+import { useUIStore, useCalendarStore, useAuthStore } from "../../index";
 
 export const FabAddNew = () => {
   const { openDateModal } = useUIStore();
   const { setActiveEvent } = useCalendarStore();
+  const { user } = useAuthStore();
+
   const handleOpenModal = () => {
     setActiveEvent({
       title: "",
@@ -11,10 +13,7 @@ export const FabAddNew = () => {
       start: new Date(),
       end: addHours(new Date(), 2),
       bgColor: "#fafafa",
-      user: {
-        _id: "123",
-        name: "Dario",
-      },
+      user: user.uid,
     });
     openDateModal();
   };
