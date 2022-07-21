@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Calendar } from "react-big-calendar";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import {
@@ -14,7 +14,7 @@ import {
 } from "../../index";
 
 export const CalendarPages = () => {
-  const { events, setActiveEvent } = useCalendarStore();
+  const { events, setActiveEvent, startLoadingEvents } = useCalendarStore();
   const { openDateModal } = useUIStore();
   const [lastView, setLastView] = useState(
     localStorage.getItem("lasView") || "week"
@@ -30,6 +30,7 @@ export const CalendarPages = () => {
       style,
     };
   };
+
   const onDobleClick = (event) => {
     openDateModal();
   };
@@ -39,6 +40,9 @@ export const CalendarPages = () => {
   const onViewChaged = (event) => {
     localStorage.setItem("lasView", event);
   };
+  useEffect(() => {
+    startLoadingEvents();
+  }, []);
   return (
     <>
       <Navbar />

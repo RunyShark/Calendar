@@ -5,6 +5,8 @@ import {
   onUpdateEvent,
   onDeleteEvent,
   calendarApi,
+  conversEventsToDateEvents,
+  onEvents,
 } from "../index";
 
 export const useCalendarStore = () => {
@@ -29,6 +31,16 @@ export const useCalendarStore = () => {
   const starteleteEvente = () => {
     dispatch(onDeleteEvent());
   };
+  const startLoadingEvents = async () => {
+    try {
+      const { data } = await calendarApi.get("/events");
+      const events = conversEventsToDateEvents(data.results);
+
+      dispatch(onEvents(events));
+    } catch (error) {
+      console.log(`Error cargando eventos ${error}`);
+    }
+  };
   return {
     //*propiedades
     activeEvent,
@@ -38,5 +50,6 @@ export const useCalendarStore = () => {
     setActiveEvent,
     startSavingEvent,
     starteleteEvente,
+    startLoadingEvents,
   };
 };
