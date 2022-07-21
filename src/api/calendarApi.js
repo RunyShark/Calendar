@@ -5,11 +5,12 @@ const { VITE_API_URL } = getEnvVariables();
 const calendarApi = axios.create({
   baseURL: VITE_API_URL,
 });
+
 calendarApi.interceptors.request.use((config) => {
   config.headers = {
-    ...config.headers,
-    "x-toke": localStorage.getItem("token"),
+    "x-token": localStorage.getItem("token"),
   };
+  console.log(`soy yo`, config);
 
   return config;
 });
