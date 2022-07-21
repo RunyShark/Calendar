@@ -11,17 +11,21 @@ import {
   useCalendarStore,
   FabAddNew,
   FabAddDelete,
+  useAuthStore,
 } from "../../index";
 
 export const CalendarPages = () => {
   const { events, setActiveEvent, startLoadingEvents } = useCalendarStore();
+  const { user } = useAuthStore();
   const { openDateModal } = useUIStore();
   const [lastView, setLastView] = useState(
     localStorage.getItem("lasView") || "week"
   );
   const eventeStyleGetter = (event, start, end, isSelected) => {
+    const isMyEvent =
+      user.uid === event.user._id || user.uid === event.user.uid;
     const style = {
-      backgroundColor: "#347CF7",
+      backgroundColor: isMyEvent ? "#347CF7" : "#465660",
       borderRadius: "0px",
       opacity: 0.8,
       color: "white",
